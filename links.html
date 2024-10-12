@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Submit Student Info</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh; /* Full height for vertical centering */
+            background-color: #ffffff; /* White background for a clean look */
+        }
+        .container {
+            max-width: 400px;
+            margin: 20px; /* Margin to prevent touching the edges */
+            padding: 20px;
+            background-color: #f9f9f9; /* Light grey background for contrast */
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            text-align: center;
+            color: #333333; /* Dark grey for readability */
+            margin-bottom: 20px;
+            font-size: 24px; /* Increased font size for title */
+        }
+        label {
+            margin-top: 15px;
+            font-weight: bold;
+            color: #555555; /* Darker grey for labels */
+        }
+        input[type="text"],
+        input[type="tel"] {
+            display: block;
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 15px;
+            border: 1px solid #cccccc; /* Light grey border */
+            border-radius: 5px;
+            transition: border 0.3s;
+        }
+        input[type="text"]:focus,
+        input[type="tel"]:focus {
+            border: 1px solid #007bff; /* Blue focus border */
+            outline: none;
+        }
+        button {
+            padding: 12px;
+            width: 100%;
+            background-color: #007bff; /* Blue button */
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: background-color 0.3s;
+        }
+        button:hover {
+            background-color: #0056b3; /* Darker blue on hover */
+        }
+        #status {
+            margin-top: 10px;
+            text-align: center;
+            color: #28a745; /* Success color */
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>Submit Your Information</h1>
+
+        <form id="studentForm">
+            <label for="name">Name:</label>
+            <input type="text" id="name" name="name" required>
+
+            <label for="college">College:</label>
+            <input type="text" id="college" name="college" required>
+
+            <label for="usn">USN:</label>
+            <input type="text" id="usn" name="usn" required>
+
+            <label for="mobile">Mobile Number:</label>
+            <input type="tel" id="mobile" name="mobile" required pattern="[0-9]{10}" title="Please enter a valid 10-digit mobile number.">
+
+            <button type="submit">Submit</button>
+        </form>
+
+        <p id="status"></p>
+    </div>
+
+    <script>
+        document.getElementById('studentForm').addEventListener('submit', function(event) {
+            event.preventDefault(); // Prevent the form from refreshing the page
+
+            const formData = new FormData(this);
+
+            // Submit the form data to the Google Apps Script URL
+            fetch('https://script.google.com/macros/s/AKfycbxfzXhbAzcbVO8kxbmGacnFQfxxZKpU8PX2T43Z3gaT0Q1JwAe4yHeQU_YOuvJcbaF2/exec', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById('status').innerText = data; // Show success message
+                setTimeout(() => {
+                    window.location.href = 'links.html'; // Redirect to another page after 2 seconds
+                }, 2000); // Adjust the timeout as needed
+            })
+            .catch(error => {
+                document.getElementById('status').innerText = 'An error occurred: ' + error;
+            });
+        });
+    </script>
+
+</body>
+</html>
