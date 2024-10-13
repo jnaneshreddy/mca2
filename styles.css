@@ -86,3 +86,20 @@ body {
         font-size: 1.1em;
     }
 }
+footer {
+    text-align: center;
+    padding: 20px 0;
+    background-color: #f1f1f1;
+    border-top: 1px solid #cccccc;
+    margin-top: 20px;
+}
+.footer-text {
+    color: #555555;
+}
+.portfolio-link {
+    color: #007bff;
+    text-decoration: none;
+}
+.portfolio-link:hover {
+    text-decoration: underline;
+}
